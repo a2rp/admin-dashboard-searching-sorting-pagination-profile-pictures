@@ -180,14 +180,6 @@ npm run build
 
 Creates a production build of the frontend.
 
-### Tests
-
-```bash
-npm test
-```
-
-Runs the configured React test command.
-
 ---
 
 ## 7. Backend Installation
@@ -260,18 +252,18 @@ API prefix:
 
 ---
 
-## 9.1 Test Endpoint
+## 9.1 API Information
 
 ### Request
 
 ```http
-GET /api/v1/a2rp
+GET /api/v1/info
 ```
 
 Full request:
 
 ```http
-GET http://localhost:1198/api/v1/a2rp
+GET http://localhost:1198/api/v1/info
 ```
 
 ---
@@ -443,7 +435,7 @@ Multer is included in the backend dependencies for file upload handling.
 
 | Method | Endpoint                     | Purpose              |
 | ------ | ---------------------------- | -------------------- |
-| GET    | `/api/v1/a2rp`               | Test endpoint        |
+| GET    | `/api/v1/info`               | API information      |
 | POST   | `/api/v1/login`              | User login           |
 | GET    | `/api/v1/user-all`           | Get all users        |
 | POST   | `/api/v1/user`               | Get user using email |
@@ -530,7 +522,7 @@ Implementation-specific authentication behavior should be determined from the so
 
 ---
 
-## 15. API Testing
+## 15. REST Request Examples
 
 The backend contains:
 

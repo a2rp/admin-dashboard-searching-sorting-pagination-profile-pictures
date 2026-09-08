@@ -2,6 +2,7 @@ import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, Al
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../../config/api';
 
 const Delete = () => {
     const { state } = useLocation();
@@ -15,7 +16,7 @@ const Delete = () => {
 
     const deleteUser = () => {
         console.log("deleted", email);
-        axios.delete(`http://localhost:1198/api/v1/user-delete/${email}`).then(response => {
+        axios.delete(`${API_BASE_URL}/api/v1/user-delete/${encodeURIComponent(email)}`).then(response => {
             console.log(response);
         }).catch(error => {
             console.log(error.message);

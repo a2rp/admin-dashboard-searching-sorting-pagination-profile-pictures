@@ -1,7 +1,8 @@
 import { Button, FormControl, FormLabel, Input, Select, Text } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from '../../config/api';
 
 const AddUser = () => {
     const navigate = useNavigate(null);
@@ -9,7 +10,7 @@ const AddUser = () => {
         if (window.localStorage.getItem("role") !== "administrator") {
             navigate("/home");
         }
-    }, []);
+    }, [navigate]);
 
     // add user
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,13 +33,8 @@ const AddUser = () => {
         event.preventDefault();
 
         setResponse(false);
-        let emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
-        emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;;
-        const emailTestValue = function validateEmail(email) {
-            return emailRegex.test(email);
-        }
-        // console.log(emailTestValue(inputs.email), "emailTestValue");
-        if (!emailTestValue(inputs.email)) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(inputs.email)) {
             setResponse("Invalid Email");
             return;
         }
@@ -61,10 +57,9 @@ const AddUser = () => {
         // formData.append("password_confirm", inputs.password_confirm);
         // formData.append("role", inputs.role);
 
-        console.log(inputs);
         setIsSubmitting(true);
         setResponse("");
-        axios.post(`http://localhost:1198/api/v1/user-add`, inputs).then(response => {
+        axios.post(`${API_BASE_URL}/api/v1/user-add`, inputs).then(response => {
             console.log(response);
             if (response.data.success) {
                 // window.location.reload();

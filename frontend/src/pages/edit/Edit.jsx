@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/header/Header";
 
-import { v4 as uuid } from 'uuid';
+import { API_BASE_URL } from '../../config/api';
 
 const EditUser = () => {
     const { state } = useLocation();
@@ -15,7 +15,7 @@ const EditUser = () => {
     // fetch user by email
     const [user, setUser] = useState({ name: "", role: "" });
     useEffect(() => {
-        axios.post(`http://localhost:1198/api/v1/user`, { email }).then(response => {
+        axios.post(`${API_BASE_URL}/api/v1/user`, { email }).then(response => {
             console.log(response.data);
             setUser({ name: response.data.name, role: response.data.role });
             setInputs({ name: response.data.name, role: response.data.role, email: response.data.email });
@@ -51,7 +51,7 @@ const EditUser = () => {
         }
 
         setIsSubmitting(true);
-        axios.patch(`http://localhost:1198/api/v1/user-update`, inputs).then(response => {
+        axios.patch(`${API_BASE_URL}/api/v1/user-update`, inputs).then(response => {
             // console.log(response);
             if (response.data.success) {
                 navigate("/home");
@@ -71,7 +71,7 @@ const EditUser = () => {
     };
 
     // add image
-    const [userImageSRC, setUserImageSRC] = useState(`http://localhost:1198/${email}.png` || "");
+    const [userImageSRC, setUserImageSRC] = useState(`${API_BASE_URL}/${email}.png` || "");
     const [imageResponse, setImageResponse] = useState("");
     const fileInputRef = useRef(null);
     const uploadFile = async (event) => {
@@ -79,8 +79,6 @@ const EditUser = () => {
 
         try {
             const formData = new FormData();
-            const uniqueId = uuid();
-            const smallId = uniqueId.slice(0, 6);
             formData.append("id", user);
             formData.append("email", email);
             formData.append("file", fileInputRef.current.files[0]);
@@ -91,11 +89,11 @@ const EditUser = () => {
                 return;
             }
             setImageResponse("");
-            const res = await axios.post("http://localhost:1198/api/v1/user-upload-image", formData);
+            const res = await axios.post(`${API_BASE_URL}/api/v1/user-upload-image`, formData);
             console.log(res);
             setImageResponse(res.data.message);
             // window.location.reload();
-            setUserImageSRC(`http://localhost:1198/${email}.png`);
+            setUserImageSRC(`${API_BASE_URL}/${email}.png`);
         } catch (error) {
             console.log(error, "error");
             setImageResponse(error.message);
@@ -143,7 +141,7 @@ const EditUser = () => {
             {/* user add image */}
             <div style={{ marginTop: "50px", padding: "15px" }}>
                 <Text style={{ fontWeight: "bolder" }}>Add Profile Image [.png file, &lt; 5mb]</Text>
-                <img src={`${userImageSRC}?${new Date().getTime()}`} alt="profile image" style={{ border: "3px solid #000", borderRadius: "5px", width: "200px", height: "100px", marginTop: "30px" }} key={Date.now()} />
+                <img src={`${userImageSRC}?${new Date().getTime()}`} alt={`${email} profile`} style={{ border: "3px solid #000", borderRadius: "5px", width: "200px", height: "100px", marginTop: "30px" }} key={userImageSRC} />
                 <input type="file" ref={fileInputRef} style={{ marginTop: "15px" }} />
                 <Button onClick={uploadFile} style={{ display: "block", marginTop: "15px" }} colorScheme="blue" >Add - Update Photos</Button>
                 <div>{imageResponse}</div>

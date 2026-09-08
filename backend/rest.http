@@ -1,4 +1,4 @@
-GET http://localhost:1198/api/v1/a2rp
+GET http://localhost:1198/api/v1/info
 
 ### login
 POST http://localhost:1198/api/v1/login

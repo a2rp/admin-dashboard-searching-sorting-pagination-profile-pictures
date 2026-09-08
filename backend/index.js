@@ -1,26 +1,24 @@
 require("dotenv").config();
+const app = require("./app");
+const connectMongoDB = require("./api/helpers/mongodb-connect");
 
-const cors = require("cors");
-const express = require("express");
-const app = express();
-const path = require("path");
+const validateEnvironment = () => {
+    const missing = ["MONGODB_URI", "MONGODB_DBNAME"].filter((key) => !process.env[key]);
+    if (missing.length) throw new Error(`Missing required environment variables: ${missing.join(", ")}`);
+};
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use(express.static(__dirname + "/api/uploads"));
+const startServer = async () => {
+    try {
+        validateEnvironment();
+        await connectMongoDB();
+        const port = Number(process.env.PORT) || 1198;
+        app.listen(port, () => console.log(`Server running on port ${port}`));
+    } catch (error) {
+        console.error(`Server startup failed: ${error.message}`);
+        process.exitCode = 1;
+    }
+};
 
-const testRouter = require("./api/routes/test.route");
-app.use("/api/v1", testRouter);
+if (require.main === module) startServer();
 
-const userRouter = require("./api/routes/user.route");
-app.use("/api/v1", userRouter);
-
-const imageUploadRouter = require("./api/routes/image-upload.routes");
-app.use("/api/v1", imageUploadRouter);
-
-require("./api/helpers/mongodb-connect");
-const PORT = process.env.PORT || 1198;
-app.listen(PORT, console.log(`server running http://localhost:${PORT}`));
-
-
+module.exports = { app, startServer, validateEnvironment };

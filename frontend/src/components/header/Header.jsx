@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
-import { NavLink } from "react-router-dom";
-
-import { Heading } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react'
 
 const Header = () => {
-    const [email, setEmail] = useState(window.localStorage.getItem("email") || "");
+    const email = window.localStorage.getItem("email") || "";
     const handleLogout = (event) => {
         event.preventDefault();
         window.localStorage.clear();

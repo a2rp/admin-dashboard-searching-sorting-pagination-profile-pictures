@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import { Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { TbCaretUpDown } from "react-icons/tb";
+import { API_BASE_URL } from '../../config/api';
 
 const DisplayPaginatedData = ({ jsonData, userEmail }) => {
     // console.log(jsonData);
@@ -50,10 +51,10 @@ const DisplayPaginatedData = ({ jsonData, userEmail }) => {
     const [idSort, setIdSort] = useState(false);
     const sortById = () => {
         if (idSort === true) {
-            Data.sort((a, b) => (a.id > b.id) ? 1 : -1);
+            Data.sort((a, b) => (a.userid > b.userid) ? 1 : -1);
             setIdSort(false);
         } else if (idSort === false) {
-            Data.sort((a, b) => (a.id < b.id) ? 1 : -1);
+            Data.sort((a, b) => (a.userid < b.userid) ? 1 : -1);
             setIdSort(true);
         }
     };
@@ -96,17 +97,17 @@ const DisplayPaginatedData = ({ jsonData, userEmail }) => {
             <nav className={styles.nav}>
                 <ul>
                     <li>
-                        <a href="#" onClick={previousPage} className={styles.previous}>previous</a>
+                        <button type="button" onClick={previousPage} className={styles.previous}>previous</button>
                     </li>
                     {
                         numbers && numbers.map((number, index) => (
                             <li key={index} style={{ backgroundColor: currentPage === number ? "#000" : "", color: currentPage === number ? "#fff" : "" }}>
-                                <a href="#" onClick={() => changeCurrentPage(number)}>{number}</a>
+                                <button type="button" onClick={() => changeCurrentPage(number)}>{number}</button>
                             </li>
                         ))
                     }
                     <li>
-                        <a href="#" onClick={nextPage}>next</a>
+                        <button type="button" onClick={nextPage}>next</button>
                     </li>
                 </ul>
             </nav>
@@ -139,7 +140,7 @@ const DisplayPaginatedData = ({ jsonData, userEmail }) => {
                         {records.map((data, index) => (
                             <Tr key={index} className={styles.tr}>
                                 <Td className={styles.td}>
-                                    <img src={`http://localhost:1198/${data.email}.png`} alt="profile image" style={{ border: "3px solid #000", borderRadius: "5px", width: "100px", height: "50px", marginTop: "30px" }} key={Date.now()} />
+                                    <img src={`${API_BASE_URL}/${data.email}.png`} alt={`${data.name} profile`} style={{ border: "3px solid #000", borderRadius: "5px", width: "100px", height: "50px", marginTop: "30px" }} key={data.userid} />
                                 </Td>
                                 <Td className={styles.td}>{data.userid}</Td>
                                 <Td className={styles.td}>{data.name}</Td>

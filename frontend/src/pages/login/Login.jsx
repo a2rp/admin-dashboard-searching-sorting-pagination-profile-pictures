@@ -7,16 +7,17 @@ import { Button, FormControl, FormLabel, Heading } from "@chakra-ui/react";
 
 import { Input } from "@chakra-ui/react"
 import { Text } from '@chakra-ui/react'
+import { API_BASE_URL } from '../../config/api';
 
 const Login = () => {
     // check logged in user there or not to redirect to home page
     const navigate = useNavigate(null);
-    const [userEmail, setUserEmail] = useState(window.localStorage.getItem("email") || "");
+    const userEmail = window.localStorage.getItem("email") || "";
     useEffect(() => {
         if (userEmail.length > 0) {
             navigate("/home");
         }
-    }, []);
+    }, [navigate, userEmail]);
 
     // axios response and form inputs
     const [response, setResponse] = useState("");
@@ -44,7 +45,7 @@ const Login = () => {
         // console.log(loginData);
         setResponse("");
         setIsSubmitting(true);
-        axios.post(`http://localhost:1198/api/v1/login`, loginData).then(response => {
+        axios.post(`${API_BASE_URL}/api/v1/login`, loginData).then(response => {
             console.log(response, "response");
             setResponse(response.data.message);
             if (response.data.success) {

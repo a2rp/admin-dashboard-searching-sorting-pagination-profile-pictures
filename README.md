@@ -128,10 +128,10 @@ npm run build
 
 The repository includes the following requests in `backend/rest.http`.
 
-### Test Endpoint
+### API Information
 
 ```http
-GET http://localhost:1198/api/v1/a2rp
+GET http://localhost:1198/api/v1/info
 ```
 
 ### Login

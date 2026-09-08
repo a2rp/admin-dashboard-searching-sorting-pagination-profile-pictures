@@ -15,19 +15,24 @@ const userSchema = new Schema({
         type: String,
         required: true,
         lowercase: true,
-        unique: true
+        unique: true,
+        trim: true,
+        match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     },
     password: {
         type: String,
         required: true,
+        minlength: 8
     },
     role: {
         type: String,
-        required: true
+        required: true,
+        enum: ["administrator", "editor", "viewer"]
     }
 }, { timestamps: true });
 
 userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) return next();
     try {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(this.password, salt);
