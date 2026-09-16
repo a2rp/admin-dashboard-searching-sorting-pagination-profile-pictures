@@ -1,6 +1,5 @@
-import React from "react";
 import styles from "./styles.module.scss";
-import { Button } from '@chakra-ui/react'
+import { FiLogOut, FiShield, FiUsers } from "react-icons/fi";
 
 const Header = () => {
     const email = window.localStorage.getItem("email") || "";
@@ -11,16 +10,17 @@ const Header = () => {
     };
 
     return (
-        <div className={styles.container}>
-            {/* <NavLink className={styles.navlink} to="/home">Home</NavLink> */}
-            USER MANAGEMENT DASHBOARD {email ? "[" + email + "]" : ""}
-            {email.length === 0 ? <>
-                {/* <NavLink className={styles.navlink} to="/login">Login</NavLink> */}
-            </> : <>
-                {/* <div className={`${styles.navlink} ${styles.logout}`} onClick={handleLogout}>Logout</div> */}
-                <Button colorScheme='red' onClick={handleLogout}>Logout</Button>
-            </>}
-        </div>
+        <header className={styles.container}>
+            <div className={styles.brand}>
+                <span className={styles.logo}><FiUsers /></span>
+                <div><strong>Admin<span>Panel</span></strong><small>User management workspace</small></div>
+            </div>
+            <div className={styles.account}>
+                <span className={styles.accountIcon}><FiShield /></span>
+                <span className={styles.email}>{email || "Guest access"}</span>
+                {email && <button type="button" className={styles.logout} onClick={handleLogout}><FiLogOut /> <span>Logout</span></button>}
+            </div>
+        </header>
     )
 }
 

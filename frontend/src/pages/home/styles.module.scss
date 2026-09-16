@@ -1,8 +1,21 @@
 .container {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #07111f, #0b1728);
+    color: #e2e8f0;
     // border: 1px solid #f00;
 
     .contentContainer {
-        padding: 15px;
+        max-width: 1180px;
+        margin: auto;
+        padding: 46px clamp(18px, 4vw, 56px) 10px;
+
+        .hero { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-bottom: 30px; }
+        .hero h1 { max-width: 650px; margin: 10px 0; font-size: clamp(2rem, 5vw, 4rem); line-height: 1; letter-spacing: -.06em; }
+        .hero p { max-width: 550px; color: #94a3b8; }
+        .kicker { display: inline-flex; align-items: center; gap: 7px; color: #67e8f9; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+        .heroStat { min-width: 130px; padding: 18px; border: 1px solid rgba(148,163,184,.16); border-radius: 16px; background: rgba(15,23,42,.7); text-align: right; }
+        .heroStat strong, .heroStat span { display: block; } .heroStat strong { color: #67e8f9; } .heroStat span { margin-top: 4px; color: #94a3b8; font-size: .75rem; }
+        .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
 
         h3 {
             margin: 15px;
@@ -53,3 +66,4 @@
         }
     }
 }
+@media (max-width: 600px) { .container .contentContainer .hero { align-items: flex-start; flex-direction: column; } .container .contentContainer .heroStat { text-align: left; } }

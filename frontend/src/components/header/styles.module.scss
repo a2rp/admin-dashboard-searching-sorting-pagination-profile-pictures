@@ -1,21 +1,30 @@
 .container {
-    // border: 1px solid #f00;
-    height: 50px;
-    background-color: #131313;
-    color: #fff;
-
+    min-height: 76px;
+    background: rgba(9, 15, 28, .9);
+    border-bottom: 1px solid rgba(148, 163, 184, .14);
+    color: #f8fafc;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 clamp(18px, 4vw, 56px);
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(18px);
+}
+.brand, .account { display: flex; align-items: center; gap: 12px; }
+.logo { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: linear-gradient(135deg, #38bdf8, #6366f1); color: white; font-size: 20px; box-shadow: 0 10px 30px rgba(56,189,248,.2); }
+.brand strong { display: block; font-size: 1.05rem; letter-spacing: -.03em; }
+.brand strong span { color: #67e8f9; }
+.brand small { display: block; margin-top: 2px; color: #94a3b8; font-size: .68rem; }
+.account { color: #cbd5e1; font-size: .82rem; }
+.accountIcon { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid rgba(148,163,184,.2); border-radius: 50%; color: #67e8f9; }
+.logout { display: inline-flex; align-items: center; gap: 7px; padding: 9px 13px; border: 1px solid rgba(248,113,113,.3); border-radius: 10px; background: rgba(248,113,113,.08); color: #fecaca; cursor: pointer; transition: .2s ease; }
+.logout:hover { background: rgba(248,113,113,.17); transform: translateY(-2px); }
+@media (max-width: 560px) { .email { display: none; } .brand small { display: none; } .logout span { display: none; } .logout { padding: 10px; } }
 
-    padding-left: 15px;
-    padding-right: 15px;
-
-    .navlink {
-        color: #fff;
-    }
-
-    .logout {
-        cursor: pointer;
-    }
+/* Kept for existing consumers of the legacy class names. */
+.navlink {
+    color: #fff;
 }

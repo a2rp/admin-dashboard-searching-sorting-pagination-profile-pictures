@@ -60,7 +60,6 @@ const AddUser = () => {
         setIsSubmitting(true);
         setResponse("");
         axios.post(`${API_BASE_URL}/api/v1/user-add`, inputs).then(response => {
-            console.log(response);
             if (response.data.success) {
                 // window.location.reload();
                 setInputs({
@@ -73,20 +72,14 @@ const AddUser = () => {
             }
             setResponse(response.data.message);
         }).catch(error => {
-            console.log(error);
             setResponse(error.message);
         }).finally(() => {
             setIsSubmitting(false);
         });
     };
 
-    useEffect(() => {
-        console.log(inputs);
-    }, [inputs]);
-
     const [selected, setSelected] = useState();
     const handleRoleChange = event => {
-        console.log(event.target.value);
         setSelected(event.target.value);
         setInputs({ ...inputs, role: event.target.value });
     };

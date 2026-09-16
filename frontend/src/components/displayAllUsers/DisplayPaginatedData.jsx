@@ -9,8 +9,7 @@ const DisplayPaginatedData = ({ jsonData, userEmail }) => {
     // console.log(jsonData);
     const navigate = useNavigate(null);
 
-    const Data = jsonData;
-    console.log(Data, "data");
+    const Data = [...jsonData];
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 3;
     const lastIndex = currentPage * recordsPerPage;
@@ -37,7 +36,6 @@ const DisplayPaginatedData = ({ jsonData, userEmail }) => {
 
     // edit user
     const editUser = (email) => {
-        console.log(email);
         // return <Navigate to={"/edit"} state={{ email }} />
         return navigate("/edit", { replace: true, state: { email } });
     };
