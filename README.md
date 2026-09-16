@@ -53,9 +53,9 @@ Based on the current project implementation and included API requests, the proje
 
 ```text
 admin-dashboard-searching-sorting-pagination-profile-pictures/
-├── backend/
-├── frontend/
-└── README.md
+â”œâ”€â”€ backend/
+â”œâ”€â”€ frontend/
+â””â”€â”€ README.md
 ```
 
 The backend contains the API implementation, while the frontend contains the React application.
@@ -241,7 +241,6 @@ The repository includes Multer as a backend dependency for file upload handling.
 
 ## Documentation
 
-Detailed technical documentation is available in `DOCUMENTATION.md`.
 
 ## Author
 
